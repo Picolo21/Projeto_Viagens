@@ -1,7 +1,5 @@
 ﻿using Projeto_Viagens.Models;
 using System.Data.SqlClient;
-using System.IO;
-using System.Reflection.Emit;
 using System.Text;
 
 namespace Projeto_Viagens.Services
