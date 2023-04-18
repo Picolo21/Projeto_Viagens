@@ -56,10 +56,7 @@ namespace Projeto_Viagens.Services
             sb.Append(" A.ZipCode,");
             sb.Append(" A.Complement,");
             sb.Append(" A.RegistrationDate,");
-            sb.Append(" A.Id_City,");
-            sb.Append(" C.Id AS Id_City,");
             sb.Append(" C.Description,");
-            sb.Append(" C.RegistrationDate AS RegistrationDate_City,");
             sb.Append(" FROM Address A, City C");
             sb.Append(" WHERE C.Id = A.Id_City");
 
