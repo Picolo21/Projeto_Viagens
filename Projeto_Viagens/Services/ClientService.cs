@@ -1,10 +1,6 @@
 ﻿using Projeto_Viagens.Models;
 using System.Data.SqlClient;
-using System.IO;
-using System.Net;
-using System.Reflection.Emit;
 using System.Text;
-using System.Xml.Linq;
 
 namespace Projeto_Viagens.Services
 {
@@ -83,6 +79,10 @@ namespace Projeto_Viagens.Services
                     ZipCode = (string)dr["ZipCode"],
                     Complement = (string)dr["Complement"],
                     RegistrationDate = (DateTime)dr["AddressRegistrationDate"]
+                };
+                client.Address.City = new City()
+                {
+                    Description = (string)dr["Description"]
                 };
 
                 clients.Add(client);

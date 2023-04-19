@@ -1,5 +1,6 @@
 ﻿using Projeto_Viagens.Models;
 using System.Data.SqlClient;
+using System.Net;
 using System.Text;
 
 namespace Projeto_Viagens.Services
@@ -20,7 +21,7 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strInsert = "INSERT INTO City (Street, Number, Neighborhood, ZipCode, Complement, RegistrationDate, Id_City) VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @RegistrationDate, @Id_City); SELECT CAST(scope_identity() as int)";
+                string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, ZipCode, Complement, RegistrationDate, Id_City) VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @RegistrationDate, @Id_City); SELECT CAST(scope_identity() as int)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
@@ -30,7 +31,7 @@ namespace Projeto_Viagens.Services
                 commandInsert.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
                 commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
                 commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", address.RegistrationDate));
-                commandInsert.Parameters.Add(new SqlParameter("@Id_City", address.City));
+                commandInsert.Parameters.Add(new SqlParameter("@Id_City", InsertCity(address.City).Id));
 
                 commandInsert.ExecuteNonQuery();
                 status = true;
@@ -41,6 +42,21 @@ namespace Projeto_Viagens.Services
                 throw;
             }
             return status;
+        }
+
+        public City InsertCity(City city)
+        {
+            string strInsert = "INSERT INTO City (Description, RegistrationDate) VALUES (@Description, @RegistrationDate); SELECT CAST(scope_identity() as int)";
+
+            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", city.RegistrationDate));
+
+            var id = (int)commandInsert.ExecuteScalar();
+            city.Id = id;
+
+            return city;
         }
 
         public List<Address> FindAll()
@@ -56,7 +72,9 @@ namespace Projeto_Viagens.Services
             sb.Append(" A.ZipCode,");
             sb.Append(" A.Complement,");
             sb.Append(" A.RegistrationDate,");
+            sb.Append(" C.Id AS CityId,");
             sb.Append(" C.Description,");
+            sb.Append(" C.RegistrationDate AS CityRegistrationDate");
             sb.Append(" FROM Address A, City C");
             sb.Append(" WHERE C.Id = A.Id_City");
 
@@ -76,9 +94,9 @@ namespace Projeto_Viagens.Services
                 address.RegistrationDate = (DateTime) dr["RegistrationDate"];
                 address.City = new City() 
                 { 
-                    Id = (int) dr["Id_City"],
+                    Id = (int) dr["CityId"],
                     Description = (string) dr["Description"],
-                    RegistrationDate = (DateTime) dr["RegistrationDate_City"]
+                    RegistrationDate = (DateTime) dr["CityRegistrationDate"]
                 };
 
                 addresses.Add(address);

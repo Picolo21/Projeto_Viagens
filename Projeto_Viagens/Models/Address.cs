@@ -10,5 +10,12 @@
         public string Complement { get; set; }
         public City City { get; set; }
         public DateTime RegistrationDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"Rua: {Street}\nNúmero: {Number}\nBairro: {Neighborhood}\n" +
+                    $"CEP: {ZipCode}\nComplemento: {Complement}\n" +
+                    $"Cidade: {City}\nData de Registro: {RegistrationDate}\n";
+        }
     }
 }

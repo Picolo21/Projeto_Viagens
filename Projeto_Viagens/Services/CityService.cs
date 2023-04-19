@@ -46,7 +46,7 @@ namespace Projeto_Viagens.Services
 
             sb.Append("SELECT Id,");
             sb.Append(" Description,");
-            sb.Append(" RegistrationDate,");
+            sb.Append(" RegistrationDate");
             sb.Append(" FROM City");
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
