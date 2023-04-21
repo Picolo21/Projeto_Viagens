@@ -82,7 +82,7 @@ namespace Projeto_Viagens.Services
                 };
                 client.Address.City = new City()
                 {
-                    Description = (string)dr["Description"]
+                    Name = (string)dr["Description"]
                 };
 
                 clients.Add(client);

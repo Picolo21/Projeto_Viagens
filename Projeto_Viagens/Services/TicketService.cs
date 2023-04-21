@@ -84,7 +84,7 @@ namespace Projeto_Viagens.Services
 
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
-            commandInsert.Parameters.Add(new SqlParameter("@Name", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@Name", city.Name));
             commandInsert.Parameters.Add(new SqlParameter("@Name", city.RegistrationDate));
 
             var id = (int)commandInsert.ExecuteScalar();

@@ -46,11 +46,11 @@ namespace Projeto_Viagens.Services
 
         public City InsertCity(City city)
         {
-            string strInsert = "INSERT INTO City (Description, RegistrationDate) VALUES (@Description, @RegistrationDate); SELECT CAST(scope_identity() as int)";
+            string strInsert = "INSERT INTO City (Name, RegistrationDate) VALUES (@Name, @RegistrationDate); SELECT CAST(scope_identity() as int)";
 
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
-            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@Name", city.Name));
             commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", city.RegistrationDate));
 
             var id = (int)commandInsert.ExecuteScalar();
@@ -73,7 +73,7 @@ namespace Projeto_Viagens.Services
             sb.Append(" A.Complement,");
             sb.Append(" A.RegistrationDate,");
             sb.Append(" C.Id AS CityId,");
-            sb.Append(" C.Description,");
+            sb.Append(" C.Name,");
             sb.Append(" C.RegistrationDate AS CityRegistrationDate");
             sb.Append(" FROM Address A, City C");
             sb.Append(" WHERE C.Id = A.Id_City");
@@ -95,7 +95,7 @@ namespace Projeto_Viagens.Services
                 address.City = new City() 
                 { 
                     Id = (int) dr["CityId"],
-                    Description = (string) dr["Description"],
+                    Name = (string) dr["Name"],
                     RegistrationDate = (DateTime) dr["CityRegistrationDate"]
                 };
 

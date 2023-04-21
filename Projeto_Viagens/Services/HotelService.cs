@@ -82,7 +82,7 @@ namespace Projeto_Viagens.Services
                 };
                 hotel.Address.City = new City()
                 {
-                    Description = (string) dr["Description"],
+                    Name = (string) dr["Description"],
                     RegistrationDate = (DateTime) dr["CityRegistrationDate"]
                 };
 
