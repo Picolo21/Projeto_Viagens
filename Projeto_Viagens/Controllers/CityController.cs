@@ -5,7 +5,7 @@ namespace Projeto_Viagens.Controllers
 {
     public class CityController
     {
-        public bool Insert(City city)
+        public bool InsertCity(City city)
         {
             return new CityService().Insert(city);
         }
