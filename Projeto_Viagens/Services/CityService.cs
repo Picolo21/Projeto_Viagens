@@ -1,4 +1,5 @@
 ﻿using Projeto_Viagens.Models;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace Projeto_Viagens.Services
 {
     public class CityService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\source\repos\Projeto_Viagens\Banco\Viagens.mdf";
+        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\source\repos\Projeto_Viagens\Database\Viagens.mdf";
         readonly SqlConnection conn;
 
         public CityService()
@@ -30,10 +31,65 @@ namespace Projeto_Viagens.Services
                 commandInsert.ExecuteNonQuery();
                 status = true;
             }
+            catch (SqlException e)
+            {
+                do
+                {
+                    Console.Clear();
+                    status = false;
+                    Console.WriteLine(e.Message + "\n");
+                    Console.WriteLine("Aperte ENTER para voltar ao Menu de Inserir");
+                } while (Console.ReadKey().Key != ConsoleKey.Enter);
+
+            }
             catch (Exception)
             {
                 status = false;
-                throw;
+            }
+            return status;
+        }
+
+        public bool Update(City city, int id)
+        {
+            bool status = false;
+            try
+            {
+                string strUpdate = "UPDATE City SET Name = @Name, RegistrationDate = @RegistrationDate WHERE Id = @Id";
+
+                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
+
+                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+                commandUpdate.Parameters.Add(new SqlParameter("@Name", city.Name));
+                commandUpdate.Parameters.Add(new SqlParameter("@RegistrationDate", city.RegistrationDate));
+
+                commandUpdate.ExecuteNonQuery();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+        public bool Delete(int id)
+        {
+            bool status = false;
+            try
+            {
+                string strDelete = $"DELETE FROM City WHERE Id = @Id";
+
+                SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+
+                commandDelete.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandDelete.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
             }
             return status;
         }
@@ -56,9 +112,9 @@ namespace Projeto_Viagens.Services
             {
                 City city = new City();
 
-                city.Id = (int) dr["Id"];
-                city.Name = (string) dr["Name"];
-                city.RegistrationDate = (DateTime) dr["RegistrationDate"];
+                city.Id = (int)dr["Id"];
+                city.Name = (string)dr["Name"];
+                city.RegistrationDate = (DateTime)dr["RegistrationDate"];
 
                 cities.Add(city);
             }

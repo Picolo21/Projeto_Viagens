@@ -6,16 +6,18 @@
         public string Street { get; set; }
         public int Number { get; set; }
         public string Neighborhood { get; set; }
-        public string ZipCode { get; set; }
+        public string PostalCode { get; set; }
         public string Complement { get; set; }
         public City City { get; set; }
         public DateTime RegistrationDate { get; set; }
 
-        public override string ToString()
+        public string ToStringAddress()
         {
-            return $"Rua: {Street}\nNúmero: {Number}\nBairro: {Neighborhood}\n" +
-                    $"CEP: {ZipCode}\nComplemento: {Complement}\n" +
-                    $"Cidade: {City}\nData de Registro: {RegistrationDate}\n";
+            return $"ID: {Id}\nEndereço: {Street}\nNúmero: {Number}\n" +
+                   $"Bairro: {Neighborhood}\nCEP: {PostalCode}\n" +
+                   $"Complemento: {Complement}\nCidade: {City.ToStringAddress()}" +
+                   $"Data de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}\n\n" + 
+                   $"-----------------------------------------------------------------\n";
         }
     }
 }

@@ -6,9 +6,15 @@
         public string Name { get; set; }
         public DateTime RegistrationDate { get; set; }
 
-        public override string ToString()
+        public string ToStringCity()
         {
-            return $"ID: {Id}\nNome: {Name}\nData de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}";
+            return $"ID: {Id}\nNome: {Name}\nData de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}\n\n" + 
+                   $"---------------------------------------------------------------\n";
+        }
+
+        public string ToStringAddress()
+        {
+            return $"{Name}\n";
         }
     }
 }
