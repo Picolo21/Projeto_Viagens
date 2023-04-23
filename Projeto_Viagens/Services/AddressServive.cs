@@ -42,33 +42,6 @@ namespace Projeto_Viagens.Services
             return status;
         }
 
-        public bool Insert(Address address, City city)
-        {
-            bool status = false;
-            try
-            {
-                string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, PostalCode, Complement, RegistrationDate, IdCity) VALUES (@Street, @Number, @Neighborhood, @PostalCode, @Complement, @RegistrationDate, @IdCity)";
-
-                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-
-                commandInsert.Parameters.Add(new SqlParameter("@Street", address.Street));
-                commandInsert.Parameters.Add(new SqlParameter("@Number", address.Number));
-                commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
-                commandInsert.Parameters.Add(new SqlParameter("@PostalCode", address.PostalCode));
-                commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-                commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", address.RegistrationDate));
-                commandInsert.Parameters.Add(new SqlParameter("@IdCity", city.Id));
-
-                commandInsert.ExecuteNonQuery();
-                status = true;
-            }
-            catch (Exception)
-            {
-                status = false;
-            }
-            return status;
-        }
-
         public bool Update(Address address, int id)
         {
             bool status = false;
@@ -152,7 +125,7 @@ namespace Projeto_Viagens.Services
                 address.RegistrationDate = (DateTime)dr["RegistrationDate"];
                 address.City = new City
                 {
-                    Name = (string)dr["Name"],
+                    CityName = (string)dr["Name"],
                     RegistrationDate = (DateTime)dr["RegistrationDateCity"]
                 };
 

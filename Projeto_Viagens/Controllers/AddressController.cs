@@ -10,11 +10,6 @@ namespace Projeto_Viagens.Controllers
             return new AddressServive().Insert(address, id);
         }
 
-        public bool Insert(Address address, City city)
-        {
-            return new AddressServive().Insert(address, city);
-        }
-
         public bool Update(Address address, int id)
         {
             return new AddressServive().Update(address, id);

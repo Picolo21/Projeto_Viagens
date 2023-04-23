@@ -93,7 +93,7 @@ public class Program
                     InsertAddress();
                     break;
                 case 3:
-
+                    InsertClient();
                     break;
                 case 4:
 
@@ -147,7 +147,7 @@ public class Program
                     UpdateAddress();
                     break;
                 case 3:
-
+                    UpdateClient();
                     break;
                 case 4:
 
@@ -201,7 +201,7 @@ public class Program
                     DeleteAddress();
                     break;
                 case 3:
-
+                    DeleteClient();
                     break;
                 case 4:
 
@@ -255,7 +255,7 @@ public class Program
                     PrintAddress();
                     break;
                 case 3:
-
+                    PrintClient();
                     break;
                 case 4:
 
@@ -285,7 +285,7 @@ public class Program
         Console.Write("Digite a data de registro da cidade: ");
         DateTime registrationDate = DateTime.Parse(Console.ReadLine());
 
-        City city = new City { Name = name, RegistrationDate = registrationDate };
+        City city = new City { CityName = name, RegistrationDate = registrationDate };
 
         if (new CityController().Insert(city))
         {
@@ -309,7 +309,7 @@ public class Program
         Console.Write("Digite a nova data de registro da cidade: ");
         DateTime registrationDate = DateTime.Parse(Console.ReadLine());
 
-        City city = new City { Name = name, RegistrationDate = registrationDate };
+        City city = new City { CityName = name, RegistrationDate = registrationDate };
 
         if (new CityController().Update(city, id))
         {
@@ -374,7 +374,7 @@ public class Program
                 Neighborhood = neighborhood,
                 PostalCode = postalCode,
                 Complement = complement,
-                RegistrationDate = registrationDate,
+                RegistrationDate = registrationDate
             };
 
             if (new AddressController().Insert(address, id))
@@ -386,35 +386,15 @@ public class Program
         }
         else
         {
-            Console.Write("\n\n" + "Digite o nome do endereço: ");
-            string street = Console.ReadLine();
-            Console.Write("Digite o número do endereço: ");
-            int number = int.Parse(Console.ReadLine());
-            Console.Write("Digite o bairro do endereço: ");
-            string neighborhood = Console.ReadLine();
-            Console.Write("Digite o CEP do endereço: ");
-            string postalCode = Console.ReadLine();
-            Console.Write("Digite o complemento do endereço (se houver): ");
-            string complement = Console.ReadLine();
-            Console.Write("Digite a data de registro do endereço: ");
-            DateTime registrationDateAddress = DateTime.Parse(Console.ReadLine());
-            Address address = new Address
-            {
-                Street = street,
-                Number = number,
-                Neighborhood = neighborhood,
-                PostalCode = postalCode,
-                Complement = complement,
-                RegistrationDate = registrationDateAddress
-            };
-
+            Console.Clear();
+            Console.WriteLine("Cadastro de Nova Cidade\n");
             Console.Write("Digite o nome da cidade: ");
             string name = Console.ReadLine();
             Console.Write("Digite a data de registro da cidade: ");
             DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
             City city = new City
             {
-                Name = name,
+                CityName = name,
                 RegistrationDate = registrationDateCity
             };
 
@@ -423,13 +403,7 @@ public class Program
                 Console.Clear();
                 Console.WriteLine("Cidade inserida com sucesso!");
                 Thread.Sleep(3000);
-            }
-
-            if (new AddressController().Insert(address, city))
-            {
-                Console.Clear();
-                Console.WriteLine("Endereço inserido com sucesso!");
-                Thread.Sleep(3000);
+                InsertAddress();
             }
         }
     }
@@ -495,6 +469,159 @@ public class Program
         {
             Console.Clear();
             new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+            Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
+        } while (Console.ReadKey().Key != ConsoleKey.Enter);
+    }
+
+    private static void InsertClient()
+    {
+        Console.Clear();
+        new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+        Console.Write("O Cliente a ser cadastrado já possui um endereço cadastrado [S / N]: ");
+        char choice = char.Parse(Console.ReadLine().ToUpper());
+
+        if (choice.Equals('S'))
+        {
+            Console.Write("\n\n" + "Digite o nome do cliente: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite o número do telefone do cliente: ");
+            string phone = Console.ReadLine();
+            Console.Write("Digite a data de registro do cliente: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Digite o número do ID do endereço: ");
+            int id = int.Parse(Console.ReadLine());
+            Client client = new Client
+            {
+                ClientName = name,
+                Phone = phone,
+                RegistrationDate = registrationDate
+            };
+
+            if (new ClientController().Insert(client, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Cliente inserido com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+            Console.Write("O endereço a ser cadastrado já possui uma cidade cadastrada [S / N]: ");
+            char choice2 = char.Parse(Console.ReadLine().ToUpper());
+
+            if (choice2.Equals('S'))
+            {
+                Console.Write("\n\n" + "Digite o nome do endereço: ");
+                string street = Console.ReadLine();
+                Console.Write("Digite o número do endereço: ");
+                int number = int.Parse(Console.ReadLine());
+                Console.Write("Digite o bairro do endereço: ");
+                string neighborhood = Console.ReadLine();
+                Console.Write("Digite o CEP do endereço: ");
+                string postalCode = Console.ReadLine();
+                Console.Write("Digite o complemento do endereço (se houver): ");
+                string complement = Console.ReadLine();
+                Console.Write("Digite a data de registro do endereço: ");
+                DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Digite o número do ID da cidade: ");
+                int id = int.Parse(Console.ReadLine());
+                Address address = new Address
+                {
+                    Street = street,
+                    Number = number,
+                    Neighborhood = neighborhood,
+                    PostalCode = postalCode,
+                    Complement = complement,
+                    RegistrationDate = registrationDate
+                };
+
+                if (new AddressController().Insert(address, id))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Endereço inserido com sucesso!");
+                    Thread.Sleep(3000);
+                    InsertClient();
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Cadastro da Nova Cidade\n");
+                Console.Write("Digite o nome da cidade: ");
+                string name = Console.ReadLine();
+                Console.Write("Digite a data de registro da cidade: ");
+                DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
+                City city = new City
+                {
+                    CityName = name,
+                    RegistrationDate = registrationDateCity
+                };
+
+                if (new CityController().Insert(city))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Cidade inserida com sucesso!");
+                    Thread.Sleep(3000);
+                    InsertClient();
+                }
+            }
+        }
+    }
+
+    private static void UpdateClient()
+    {
+        Console.Clear();
+        new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+
+        Console.Write("Digite o valor do ID do cliente que deseja editar: ");
+        int id = int.Parse(Console.ReadLine());
+        Console.Clear();
+
+        Console.Write("Digite o novo nome do cliente: ");
+        string name = Console.ReadLine();
+        Console.Write("Digite o novo número de telefone do cliente: ");
+        string phone = Console.ReadLine();
+        Console.Write("Digite a nova data de registro do cliente: ");
+        DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+
+        Client client = new Client
+        {
+            ClientName = name,
+            Phone = phone,
+            RegistrationDate = registrationDate
+        };
+
+        if (new ClientController().Update(client, id))
+        {
+            Console.Clear();
+            Console.WriteLine("Cliente editado com sucesso!");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void DeleteClient()
+    {
+        Console.Clear();
+        new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+        Console.Write("Digite o valor do ID do cliente que deseja deletar: ");
+        int id = int.Parse(Console.ReadLine());
+
+        if (new ClientController().Delete(id))
+        {
+            Console.Clear();
+            Console.WriteLine("Cliente deletado com sucesso!");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void PrintClient()
+    {
+        do
+        {
+            Console.Clear();
+            new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
             Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
         } while (Console.ReadKey().Key != ConsoleKey.Enter);
     }

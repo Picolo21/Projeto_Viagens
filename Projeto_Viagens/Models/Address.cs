@@ -19,5 +19,11 @@
                    $"Data de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}\n\n" + 
                    $"-----------------------------------------------------------------\n";
         }
+
+        public string ToStringClient()
+        {
+            return $"{Street}, {Number}\nComplemento: {Complement}\n" +
+                   $"Bairro: {Neighborhood}\nCidade: {City.ToStringAddress()}";
+        }
     }
 }

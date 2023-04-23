@@ -21,11 +21,11 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strInsert = "INSERT INTO City (Name, RegistrationDate) VALUES (@Name, @RegistrationDate)";
+                string strInsert = "INSERT INTO City (CityName, RegistrationDate) VALUES (@Name, @RegistrationDate)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
-                commandInsert.Parameters.Add(new SqlParameter("@Name", city.Name));
+                commandInsert.Parameters.Add(new SqlParameter("@Name", city.CityName));
                 commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", city.RegistrationDate));
 
                 commandInsert.ExecuteNonQuery();
@@ -54,12 +54,12 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strUpdate = "UPDATE City SET Name = @Name, RegistrationDate = @RegistrationDate WHERE Id = @Id";
+                string strUpdate = "UPDATE City SET CityName = @Name, RegistrationDate = @RegistrationDate WHERE Id = @Id";
 
                 SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
 
                 commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
-                commandUpdate.Parameters.Add(new SqlParameter("@Name", city.Name));
+                commandUpdate.Parameters.Add(new SqlParameter("@Name", city.CityName));
                 commandUpdate.Parameters.Add(new SqlParameter("@RegistrationDate", city.RegistrationDate));
 
                 commandUpdate.ExecuteNonQuery();
@@ -101,7 +101,7 @@ namespace Projeto_Viagens.Services
             StringBuilder sb = new StringBuilder();
 
             sb.Append("SELECT Id,");
-            sb.Append(" Name,");
+            sb.Append(" CityName,");
             sb.Append(" RegistrationDate");
             sb.Append(" FROM City");
 
@@ -113,7 +113,7 @@ namespace Projeto_Viagens.Services
                 City city = new City();
 
                 city.Id = (int)dr["Id"];
-                city.Name = (string)dr["Name"];
+                city.CityName = (string)dr["CityName"];
                 city.RegistrationDate = (DateTime)dr["RegistrationDate"];
 
                 cities.Add(city);
