@@ -1,5 +1,6 @@
 ﻿using Projeto_Viagens.Controllers;
 using Projeto_Viagens.Models;
+using System.Linq;
 
 public class Program
 {
@@ -298,25 +299,39 @@ public class Program
     private static void UpdateCity()
     {
         Console.Clear();
-        new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCity()));
+        CityController cityController = new CityController();
+        cityController.FindAll().ForEach(x => Console.WriteLine(x.ToStringCity()));
 
         Console.Write("Digite o valor do ID da cidade que deseja editar: ");
         int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-
-        Console.Write("Digite o novo nome da cidade: ");
-        string name = Console.ReadLine();
-        Console.Write("Digite a nova data de registro da cidade: ");
-        DateTime registrationDate = DateTime.Parse(Console.ReadLine());
-
-        City city = new City { CityName = name, RegistrationDate = registrationDate };
-
-        if (new CityController().Update(city, id))
+        if (cityController.FindAll().Exists(x => x.Id == id))
         {
             Console.Clear();
-            Console.WriteLine("Cidade editada com sucesso!");
+            Console.Write("Digite o novo nome da cidade: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite a nova data de registro da cidade: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+
+            City city = new City { CityName = name, RegistrationDate = registrationDate };
+
+            if (new CityController().Update(city, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Cidade editada com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
+
+        //foreach (var x in cityController.FindAll().Where(x => x.Id == id))
+        //{
+            
+        //}
     }
 
     private static void DeleteCity()
