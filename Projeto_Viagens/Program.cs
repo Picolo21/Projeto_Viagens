@@ -1,7 +1,5 @@
 ﻿using Projeto_Viagens.Controllers;
 using Projeto_Viagens.Models;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
@@ -101,7 +99,7 @@ public class Program
 
                     break;
                 case 5:
-
+                    InsertHotel();
                     break;
                 case 6:
 
@@ -155,7 +153,7 @@ public class Program
 
                     break;
                 case 5:
-
+                    UpdateHotel();
                     break;
                 case 6:
 
@@ -209,7 +207,7 @@ public class Program
 
                     break;
                 case 5:
-
+                    DeleteHotel();
                     break;
                 case 6:
 
@@ -263,7 +261,7 @@ public class Program
 
                     break;
                 case 5:
-
+                    PrintHotel();
                     break;
                 case 6:
 
@@ -667,6 +665,12 @@ public class Program
                 Thread.Sleep(3000);
             }
         }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
+            Thread.Sleep(3000);
+        }
     }
 
     private static void PrintClient()
@@ -675,6 +679,178 @@ public class Program
         {
             Console.Clear();
             new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+            Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
+        } while (Console.ReadKey().Key != ConsoleKey.Enter);
+    }
+
+    private static void InsertHotel()
+    {
+        Console.Clear();
+        new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+        Console.Write("O Hotel a ser cadastrado já possui um endereço cadastrado [S / N]: ");
+        char choice = char.Parse(Console.ReadLine().ToUpper());
+
+        if (choice.Equals('S'))
+        {
+            Console.Write("\n\n" + "Digite o nome do hotel: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite a data de registro do hotel: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Digite o valor do hotel: ");
+            decimal value = decimal.Parse(Console.ReadLine());
+            Console.Write("Digite o número do ID do endereço: ");
+            int id = int.Parse(Console.ReadLine());
+            Hotel hotel = new Hotel
+            {
+                HotelName = name,
+                RegistrationDate = registrationDate,
+                Value = value
+            };
+
+            if (new HotelController().Insert(hotel, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Hotel inserido com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+            Console.Write("O endereço a ser cadastrado já possui uma cidade cadastrada [S / N]: ");
+            char choice2 = char.Parse(Console.ReadLine().ToUpper());
+
+            if (choice2.Equals('S'))
+            {
+                Console.Write("\n\n" + "Digite o nome do endereço: ");
+                string street = Console.ReadLine();
+                Console.Write("Digite o número do endereço: ");
+                int number = int.Parse(Console.ReadLine());
+                Console.Write("Digite o bairro do endereço: ");
+                string neighborhood = Console.ReadLine();
+                Console.Write("Digite o CEP do endereço: ");
+                string postalCode = Console.ReadLine();
+                Console.Write("Digite o complemento do endereço (se houver): ");
+                string complement = Console.ReadLine();
+                Console.Write("Digite a data de registro do endereço: ");
+                DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Digite o número do ID da cidade: ");
+                int id = int.Parse(Console.ReadLine());
+                Address address = new Address
+                {
+                    Street = street,
+                    Number = number,
+                    Neighborhood = neighborhood,
+                    PostalCode = postalCode,
+                    Complement = complement,
+                    RegistrationDate = registrationDate
+                };
+
+                if (new AddressController().Insert(address, id))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Endereço inserido com sucesso!");
+                    Thread.Sleep(3000);
+                    InsertClient();
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Cadastro da Nova Cidade\n");
+                Console.Write("Digite o nome da cidade: ");
+                string name = Console.ReadLine();
+                Console.Write("Digite a data de registro da cidade: ");
+                DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
+                City city = new City
+                {
+                    CityName = name,
+                    RegistrationDate = registrationDateCity
+                };
+
+                if (new CityController().Insert(city))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Cidade inserida com sucesso!");
+                    Thread.Sleep(3000);
+                    InsertClient();
+                }
+            }
+        }
+    }
+
+    private static void UpdateHotel()
+    {
+        Console.Clear();
+        HotelController hotelController = new HotelController();
+        hotelController.FindAll().ForEach(x => Console.WriteLine(x.ToStringHotel()));
+
+        Console.Write("Digite o valor do ID do cliente que deseja editar: ");
+        int id = int.Parse(Console.ReadLine());
+        if (hotelController.FindAll().Exists(x => x.Id == id))
+        {
+            Console.Clear();
+            Console.Write("Digite o novo nome do hotel: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite a nova data de registro do hotel: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Digite o novo valor do hotel: ");
+            decimal value = decimal.Parse(Console.ReadLine());
+
+            Hotel hotel = new Hotel
+            {
+                HotelName = name,
+                RegistrationDate = registrationDate,
+                Value = value
+            };
+
+            if (new HotelController().Update(hotel, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Hotel editado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void DeleteHotel()
+    {
+        Console.Clear();
+        HotelController hotelController = new HotelController();
+        hotelController.FindAll().ForEach(x => Console.WriteLine(x.ToStringHotel()));
+
+        Console.Write("Digite o valor do ID do hotel que deseja deletar: ");
+        int id = int.Parse(Console.ReadLine());
+        if (hotelController.FindAll().Exists(x => x.Id == id))
+        {
+            if (new HotelController().Delete(id))
+            {
+                Console.Clear();
+                Console.WriteLine("Hotel deletado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void PrintHotel()
+    {
+        do
+        {
+            Console.Clear();
+            new HotelController().FindAll().ForEach(x => Console.WriteLine(x.ToStringHotel()));
             Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
         } while (Console.ReadKey().Key != ConsoleKey.Enter);
     }

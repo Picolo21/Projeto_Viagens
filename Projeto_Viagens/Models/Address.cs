@@ -25,5 +25,11 @@
             return $"{Street}, {Number}\nComplemento: {Complement}\n" +
                    $"Bairro: {Neighborhood}\nCidade: {City.ToStringAddress()}";
         }
+
+        public string ToStringHotel()
+        {
+            return $"{Street}, {Number}\nComplemento: {Complement}\n" +
+                   $"Bairro: {Neighborhood}\nCidade: {City.ToStringAddress()}";
+        }
     }
 }

@@ -104,7 +104,7 @@ namespace Projeto_Viagens.Services
             sb.Append(" A.PostalCode,");
             sb.Append(" A.Complement,");
             sb.Append(" A.RegistrationDate,");
-            sb.Append(" C.[Name],");
+            sb.Append(" C.[CityName],");
             sb.Append(" C.RegistrationDate AS RegistrationDateCity");
             sb.Append(" FROM [Address] A, City C");
             sb.Append(" WHERE A.IdCity = C.Id");
@@ -125,7 +125,7 @@ namespace Projeto_Viagens.Services
                 address.RegistrationDate = (DateTime)dr["RegistrationDate"];
                 address.City = new City
                 {
-                    CityName = (string)dr["Name"],
+                    CityName = (string)dr["CityName"],
                     RegistrationDate = (DateTime)dr["RegistrationDateCity"]
                 };
 
