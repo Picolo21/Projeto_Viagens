@@ -1,6 +1,7 @@
 ﻿using Projeto_Viagens.Controllers;
 using Projeto_Viagens.Models;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
@@ -327,24 +328,29 @@ public class Program
             Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
-
-        //foreach (var x in cityController.FindAll().Where(x => x.Id == id))
-        //{
-            
-        //}
     }
 
     private static void DeleteCity()
     {
         Console.Clear();
-        new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCity()));
+        CityController cityController = new CityController();
+        cityController.FindAll().ForEach(x => Console.WriteLine(x.ToStringCity()));
+
         Console.Write("Digite o valor do ID da cidade que deseja deletar: ");
         int id = int.Parse(Console.ReadLine());
-
-        if (new CityController().Delete(id))
+        if (cityController.FindAll().Exists(x => x.Id == id))
+        {
+            if (new CityController().Delete(id))
+            {
+                Console.Clear();
+                Console.WriteLine("Cidade deletada com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
         {
             Console.Clear();
-            Console.WriteLine("Cidade deletada com sucesso!");
+            Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
     }
@@ -426,39 +432,48 @@ public class Program
     private static void UpdateAddress()
     {
         Console.Clear();
-        new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+        AddressController addressController = new AddressController();
+        addressController.FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
 
         Console.Write("Digite o valor do ID da cidade que deseja editar: ");
         int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-
-        Console.Write("Digite o novo nome do endereço: ");
-        string street = Console.ReadLine();
-        Console.Write("Digite o novo número do endereço: ");
-        int number = int.Parse(Console.ReadLine());
-        Console.Write("Digite o novo bairro do endereço: ");
-        string neighborhood = Console.ReadLine();
-        Console.Write("Digite o novo CEP do endereço: ");
-        string postalCode = Console.ReadLine();
-        Console.Write("Digite o novo complemento do endereço: ");
-        string complement = Console.ReadLine();
-        Console.Write("Digite a nova data de registro do endereço: ");
-        DateTime registrationDate = DateTime.Parse(Console.ReadLine());
-
-        Address address = new Address
-        {
-            Street = street,
-            Number = number,
-            Neighborhood = neighborhood,
-            PostalCode = postalCode,
-            Complement = complement,
-            RegistrationDate = registrationDate
-        };
-
-        if (new AddressController().Update(address, id))
+        if (addressController.FindAll().Exists(x => x.Id == id))
         {
             Console.Clear();
-            Console.WriteLine("Endereço editado com sucesso!");
+            Console.Write("Digite o novo nome do endereço: ");
+            string street = Console.ReadLine();
+            Console.Write("Digite o novo número do endereço: ");
+            int number = int.Parse(Console.ReadLine());
+            Console.Write("Digite o novo bairro do endereço: ");
+            string neighborhood = Console.ReadLine();
+            Console.Write("Digite o novo CEP do endereço: ");
+            string postalCode = Console.ReadLine();
+            Console.Write("Digite o novo complemento do endereço: ");
+            string complement = Console.ReadLine();
+            Console.Write("Digite a nova data de registro do endereço: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+
+            Address address = new Address
+            {
+                Street = street,
+                Number = number,
+                Neighborhood = neighborhood,
+                PostalCode = postalCode,
+                Complement = complement,
+                RegistrationDate = registrationDate
+            };
+
+            if (new AddressController().Update(address, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Endereço editado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
     }
@@ -466,14 +481,24 @@ public class Program
     private static void DeleteAddress()
     {
         Console.Clear();
-        new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+        AddressController addressController = new AddressController();
+        addressController.FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
+
         Console.Write("Digite o valor do ID do endereço que deseja deletar: ");
         int id = int.Parse(Console.ReadLine());
-
-        if (new AddressController().Delete(id))
+        if (addressController.FindAll().Exists(x => x.Id == id))
+        {
+            if (new AddressController().Delete(id))
+            {
+                Console.Clear();
+                Console.WriteLine("Endereço deletado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
         {
             Console.Clear();
-            Console.WriteLine("Endereço deletado com sucesso!");
+            Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
     }
@@ -588,30 +613,39 @@ public class Program
     private static void UpdateClient()
     {
         Console.Clear();
-        new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+        ClientController clientController = new ClientController();
+        clientController.FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
 
         Console.Write("Digite o valor do ID do cliente que deseja editar: ");
         int id = int.Parse(Console.ReadLine());
-        Console.Clear();
-
-        Console.Write("Digite o novo nome do cliente: ");
-        string name = Console.ReadLine();
-        Console.Write("Digite o novo número de telefone do cliente: ");
-        string phone = Console.ReadLine();
-        Console.Write("Digite a nova data de registro do cliente: ");
-        DateTime registrationDate = DateTime.Parse(Console.ReadLine());
-
-        Client client = new Client
-        {
-            ClientName = name,
-            Phone = phone,
-            RegistrationDate = registrationDate
-        };
-
-        if (new ClientController().Update(client, id))
+        if (clientController.FindAll().Exists(x => x.Id == id))
         {
             Console.Clear();
-            Console.WriteLine("Cliente editado com sucesso!");
+            Console.Write("Digite o novo nome do cliente: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite o novo número de telefone do cliente: ");
+            string phone = Console.ReadLine();
+            Console.Write("Digite a nova data de registro do cliente: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+
+            Client client = new Client
+            {
+                ClientName = name,
+                Phone = phone,
+                RegistrationDate = registrationDate
+            };
+
+            if (new ClientController().Update(client, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Cliente editado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
             Thread.Sleep(3000);
         }
     }
@@ -619,15 +653,19 @@ public class Program
     private static void DeleteClient()
     {
         Console.Clear();
-        new ClientController().FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+        ClientController clientController = new ClientController();
+        clientController.FindAll().ForEach(x => Console.WriteLine(x.ToStringClient()));
+
         Console.Write("Digite o valor do ID do cliente que deseja deletar: ");
         int id = int.Parse(Console.ReadLine());
-
-        if (new ClientController().Delete(id))
+        if (clientController.FindAll().Exists(x => x.Id == id))
         {
-            Console.Clear();
-            Console.WriteLine("Cliente deletado com sucesso!");
-            Thread.Sleep(3000);
+            if (new ClientController().Delete(id))
+            {
+                Console.Clear();
+                Console.WriteLine("Cliente deletado com sucesso!");
+                Thread.Sleep(3000);
+            }
         }
     }
 
