@@ -5,14 +5,14 @@ namespace Projeto_Viagens.Controllers
 {
     public class HotelController
     {
-        public bool Insert(Hotel hotel,int id)
+        public bool Insert(Hotel hotel, int id)
         {
-            return new HotelService().Insert(hotel,id);
+            return new HotelService().Insert(hotel, id);
         }
 
-        public bool Update(Hotel hotel,int id)
+        public bool Update(Hotel hotel, int id)
         {
-            return new HotelService().Update(hotel,id);
+            return new HotelService().Update(hotel, id);
         }
 
         public bool Delete(int id)

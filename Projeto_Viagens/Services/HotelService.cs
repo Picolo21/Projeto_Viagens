@@ -20,13 +20,13 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strInsert = "INSERT INTO Hotel (HotelName, RegistrationDate, Value, IdAddress) VALUES (@HotelName, @RegistrationDate, @Value, @IdAddress)";
+                string strInsert = "INSERT INTO Hotel (HotelName, RegistrationDate, HotelValue, IdAddress) VALUES (@HotelName, @RegistrationDate, @Value, @IdAddress)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
                 commandInsert.Parameters.Add(new SqlParameter("@HotelName", hotel.HotelName));
                 commandInsert.Parameters.Add(new SqlParameter("@RegistrationDate", hotel.RegistrationDate));
-                commandInsert.Parameters.Add(new SqlParameter("@Value", hotel.Value));
+                commandInsert.Parameters.Add(new SqlParameter("@Value", hotel.HotelValue));
                 commandInsert.Parameters.Add(new SqlParameter("@IdAddress", id));
 
                 commandInsert.ExecuteNonQuery();
@@ -44,14 +44,14 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strUpdate = "UPDATE Hotel SET HotelName = @HotelName, RegistrationDate = @RegistrationDate, Value = @Value WHERE Id = @Id";
+                string strUpdate = "UPDATE Hotel SET HotelName = @HotelName, RegistrationDate = @RegistrationDate, HotelValue = @Value WHERE Id = @Id";
 
                 SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
 
                 commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
                 commandUpdate.Parameters.Add(new SqlParameter("@HotelName", hotel.HotelName));
                 commandUpdate.Parameters.Add(new SqlParameter("@RegistrationDate", hotel.RegistrationDate));
-                commandUpdate.Parameters.Add(new SqlParameter("@Value", hotel.Value));
+                commandUpdate.Parameters.Add(new SqlParameter("@Value", hotel.HotelValue));
 
                 commandUpdate.ExecuteNonQuery();
                 status = true;
@@ -94,7 +94,7 @@ namespace Projeto_Viagens.Services
             sb.Append("SELECT H.Id,");
             sb.Append(" H.[HotelName],");
             sb.Append(" H.RegistrationDate,");
-            sb.Append(" H.Value,");
+            sb.Append(" H.HotelValue,");
             sb.Append(" A.Street,");
             sb.Append(" A.Number,");
             sb.Append(" A.Neighborhood,");
@@ -116,7 +116,7 @@ namespace Projeto_Viagens.Services
                 hotel.Id = (int)dr["Id"];
                 hotel.HotelName = (string)dr["HotelName"];
                 hotel.RegistrationDate = (DateTime)dr["RegistrationDate"];
-                hotel.Value = (decimal)dr["Value"];
+                hotel.HotelValue = (decimal)dr["HotelValue"];
                 hotel.Address = new Address
                 {
                     Street = (string)dr["Street"],

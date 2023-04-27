@@ -3,7 +3,7 @@
     public class City
     {
         public int Id { get; set; }
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
         public DateTime RegistrationDate { get; set; }
 
         public string ToStringCity()
@@ -13,6 +13,11 @@
         }
 
         public string ToStringAddress()
+        {
+            return $"{CityName}\n";
+        }
+
+        public string ToStringTicket()
         {
             return $"{CityName}\n";
         }
