@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Projeto_Viagens.Models
+namespace Projeto_Viagens_ADO.NET.Models
 {
     public class Address
     {
@@ -47,6 +47,22 @@ namespace Projeto_Viagens.Models
             sb.Append(Neighborhood + ", ");
             sb.Append(City.ToStringTicket());
             return sb.ToString();
+        }
+
+        public string ToStringPackage()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Street + ", ");
+            sb.Append(Number + ", ");
+            if (Complement != "")
+            {
+                sb.Append(Complement + ", ");
+            }
+            sb.Append(Neighborhood + ", ");
+            sb.Append(City.ToStringPackage());
+            return sb.ToString();
+
         }
     }
 }

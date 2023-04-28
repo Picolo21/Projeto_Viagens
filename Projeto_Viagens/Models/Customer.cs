@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Projeto_Viagens.Models
+﻿namespace Projeto_Viagens_ADO.NET.Models
 {
     public class Customer
     {
@@ -16,6 +14,11 @@ namespace Projeto_Viagens.Models
                    $"Endreço: {Address.ToStringCustomer()}" +
                    $"Data de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}\n\n" +
                    $"-----------------------------------------------------------------\n";
+        }
+
+        public string ToStringPackage()
+        {
+            return $"{CustomerName}";
         }
     }
 }

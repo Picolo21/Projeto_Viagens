@@ -1,4 +1,4 @@
-﻿namespace Projeto_Viagens.Models
+﻿namespace Projeto_Viagens_ADO.NET.Models
 {
     public class City
     {
@@ -20,6 +20,11 @@
         public string ToStringTicket()
         {
             return $"{CityName}\n";
+        }
+
+        public string ToStringPackage()
+        {
+            return $"{CityName}";
         }
     }
 }

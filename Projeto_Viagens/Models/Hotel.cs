@@ -1,4 +1,4 @@
-﻿namespace Projeto_Viagens.Models
+﻿namespace Projeto_Viagens_ADO.NET.Models
 {
     public class Hotel
     {
@@ -15,6 +15,11 @@
                    $"Data de Registro: {RegistrationDate.ToString("dd/MM/yyyy")}\n" +
                    $"Valor: R$ {HotelValue.ToString("F2")}\n\n" + 
                    $"------------------------------------\n";
+        }
+
+        public string ToStringPackage()
+        {
+            return $"{HotelName}";
         }
     }
 }

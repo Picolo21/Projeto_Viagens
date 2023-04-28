@@ -1,6 +1,5 @@
-﻿using Projeto_Viagens.Controllers;
-using Projeto_Viagens.Models;
-using System.Xml.Linq;
+﻿using Projeto_Viagens_ADO.NET.Controllers;
+using Projeto_Viagens_ADO.NET.Models;
 
 public class Program
 {
@@ -103,7 +102,7 @@ public class Program
                     InsertHotel();
                     break;
                 case 6:
-
+                    InsertPackage();
                     break;
                 case 7:
                     break;
@@ -157,7 +156,7 @@ public class Program
                     UpdateHotel();
                     break;
                 case 6:
-
+                    UpdatePackage();
                     break;
                 case 7:
                     break;
@@ -211,7 +210,7 @@ public class Program
                     DeleteHotel();
                     break;
                 case 6:
-
+                    DeletePackage();
                     break;
                 case 7:
                     break;
@@ -265,7 +264,7 @@ public class Program
                     PrintHotel();
                     break;
                 case 6:
-
+                    PrintPackage();
                     break;
                 case 7:
                     break;
@@ -406,25 +405,8 @@ public class Program
         }
         else
         {
-            Console.Clear();
-            Console.WriteLine("Cadastro de Nova Cidade\n");
-            Console.Write("Digite o nome da cidade: ");
-            string? name = Console.ReadLine();
-            Console.Write("Digite a data de registro da cidade: ");
-            DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
-            City city = new City
-            {
-                CityName = name,
-                RegistrationDate = registrationDateCity
-            };
-
-            if (new CityController().Insert(city))
-            {
-                Console.Clear();
-                Console.WriteLine("Cidade inserida com sucesso!");
-                Thread.Sleep(3000);
-                InsertAddress();
-            }
+            InsertCity();
+            InsertAddress();
         }
     }
 
@@ -545,67 +527,8 @@ public class Program
         }
         else
         {
-            Console.Clear();
-            new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
-            Console.Write("O endereço a ser cadastrado já possui uma cidade cadastrada [S / N]: ");
-            char choice2 = char.Parse(Console.ReadLine().ToUpper());
-
-            if (choice2.Equals('S'))
-            {
-                Console.Write("\n\n" + "Digite o nome do endereço: ");
-                string? street = Console.ReadLine();
-                Console.Write("Digite o número do endereço: ");
-                int number = int.Parse(Console.ReadLine());
-                Console.Write("Digite o bairro do endereço: ");
-                string? neighborhood = Console.ReadLine();
-                Console.Write("Digite o CEP do endereço: ");
-                string? postalCode = Console.ReadLine();
-                Console.Write("Digite o complemento do endereço (se houver): ");
-                string? complement = Console.ReadLine();
-                Console.Write("Digite a data de registro do endereço: ");
-                DateTime registrationDate = DateTime.Parse(Console.ReadLine());
-                Console.Write("Digite o número do ID da cidade: ");
-                int id = int.Parse(Console.ReadLine());
-                Address address = new Address
-                {
-                    Street = street,
-                    Number = number,
-                    Neighborhood = neighborhood,
-                    PostalCode = postalCode,
-                    Complement = complement,
-                    RegistrationDate = registrationDate
-                };
-
-                if (new AddressController().Insert(address, id))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Endereço inserido com sucesso!");
-                    Thread.Sleep(3000);
-                    InsertCustomer();
-                }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Cadastro da Nova Cidade\n");
-                Console.Write("Digite o nome da cidade: ");
-                string? name = Console.ReadLine();
-                Console.Write("Digite a data de registro da cidade: ");
-                DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
-                City city = new City
-                {
-                    CityName = name,
-                    RegistrationDate = registrationDateCity
-                };
-
-                if (new CityController().Insert(city))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Cidade inserida com sucesso!");
-                    Thread.Sleep(3000);
-                    InsertCustomer();
-                }
-            }
+            InsertAddress();
+            InsertCustomer();
         }
     }
 
@@ -717,67 +640,8 @@ public class Program
         }
         else
         {
-            Console.Clear();
-            new CityController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
-            Console.Write("O endereço a ser cadastrado já possui uma cidade cadastrada [S / N]: ");
-            char choice2 = char.Parse(Console.ReadLine().ToUpper());
-
-            if (choice2.Equals('S'))
-            {
-                Console.Write("\n\n" + "Digite o nome do endereço: ");
-                string? street = Console.ReadLine();
-                Console.Write("Digite o número do endereço: ");
-                int number = int.Parse(Console.ReadLine());
-                Console.Write("Digite o bairro do endereço: ");
-                string? neighborhood = Console.ReadLine();
-                Console.Write("Digite o CEP do endereço: ");
-                string? postalCode = Console.ReadLine();
-                Console.Write("Digite o complemento do endereço (se houver): ");
-                string? complement = Console.ReadLine();
-                Console.Write("Digite a data de registro do endereço: ");
-                DateTime registrationDate = DateTime.Parse(Console.ReadLine());
-                Console.Write("Digite o número do ID da cidade: ");
-                int id = int.Parse(Console.ReadLine());
-                Address address = new Address
-                {
-                    Street = street,
-                    Number = number,
-                    Neighborhood = neighborhood,
-                    PostalCode = postalCode,
-                    Complement = complement,
-                    RegistrationDate = registrationDate
-                };
-
-                if (new AddressController().Insert(address, id))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Endereço inserido com sucesso!");
-                    Thread.Sleep(3000);
-                    InsertCustomer();
-                }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Cadastro da Nova Cidade\n");
-                Console.Write("Digite o nome da cidade: ");
-                string? name = Console.ReadLine();
-                Console.Write("Digite a data de registro da cidade: ");
-                DateTime registrationDateCity = DateTime.Parse(Console.ReadLine());
-                City city = new City
-                {
-                    CityName = name,
-                    RegistrationDate = registrationDateCity
-                };
-
-                if (new CityController().Insert(city))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Cidade inserida com sucesso!");
-                    Thread.Sleep(3000);
-                    InsertCustomer();
-                }
-            }
+            InsertAddress();
+            InsertHotel();
         }
     }
 
@@ -882,18 +746,23 @@ public class Program
 
         if (choice.Equals('S') && choice2.Equals('S'))
         {
-            Console.Clear();
-            new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
-
-            new CustomerController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCustomer()));
             Console.Write("\n\n" + "Digite a data da passagem: ");
             DateTime date = DateTime.Parse(Console.ReadLine());
             Console.Write("Digite o valor da passagem: ");
             decimal ticketValue = decimal.Parse(Console.ReadLine());
+
+            Console.Clear();
+            new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
             Console.Write("Digite o número do ID de origem do endereço: ");
             int idOrigin = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            new AddressController().FindAll().ForEach(x => Console.WriteLine(x.ToStringAddress()));
             Console.Write("Digite o número do ID de destino do endereço: ");
             int idDestination = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            new CustomerController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCustomer()));
             Console.Write("Digite o número do ID do cliente: ");
             int idCustomer = int.Parse(Console.ReadLine());
             Ticket ticket = new Ticket
@@ -979,6 +848,151 @@ public class Program
         {
             Console.Clear();
             new TicketController().FindAll().ForEach(x => Console.WriteLine(x.ToStringTicket()));
+            Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
+        } while (Console.ReadKey().Key != ConsoleKey.Enter);
+    }
+
+    private static void InsertPackage()
+    {
+        Console.Clear();
+        new HotelController().FindAll().ForEach(x => Console.WriteLine(x.ToStringHotel()));
+        Console.Write("O pacote a ser cadastrado já possui o hotel cadastrado [S / N]: ");
+        char choice = char.Parse(Console.ReadLine().ToUpper());
+
+        if (choice.Equals('N'))
+        {
+            InsertHotel();
+            InsertPackage();
+        }
+
+        Console.Clear();
+        new TicketController().FindAll().ForEach(x => Console.WriteLine(x.ToStringTicket()));
+        Console.Write("O pacote a ser cadastrado já possui a passagem cadastrada [S / N]: ");
+        char choice2 = char.Parse(Console.ReadLine().ToUpper());
+
+        if (choice2.Equals('N'))
+        {
+            InsertTicket();
+            InsertPackage();
+        }
+
+        Console.Clear();
+        new CustomerController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCustomer()));
+        Console.Write("O pacote a ser cadastrado já possui o cliente cadastrado [S / N]: ");
+        char choice3 = char.Parse(Console.ReadLine().ToUpper());
+
+        if (choice3.Equals('N'))
+        {
+            InsertCustomer();
+            InsertPackage();
+        }
+
+        if (choice.Equals('S') && choice2.Equals('S') && choice3.Equals('S'))
+        {
+            Console.Clear();
+            new HotelController().FindAll().ForEach(x => Console.WriteLine(x.ToStringHotel()));
+            Console.Write("Digite o número do ID do hotel: ");
+            int idHotel = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            new TicketController().FindAll().ForEach(x => Console.WriteLine(x.ToStringTicket()));
+            Console.Write("Digite o número do ID da passagem: ");
+            int idTicket = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            new CustomerController().FindAll().ForEach(x => Console.WriteLine(x.ToStringCustomer()));
+            Console.Write("Digite o número do ID do cliente: ");
+            int idCustomer = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            Console.Write("Digite a data de registro do pacote: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Digite o valor do pacote: ");
+            decimal packageValue = decimal.Parse(Console.ReadLine());
+
+            Package package = new Package
+            {
+                RegistrationDate = registrationDate,
+                PackageValue = packageValue
+            };
+
+            if (new PackageController().Insert(package, idHotel, idTicket, idCustomer))
+            {
+                Console.Clear();
+                Console.WriteLine("Pacote inserido com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+    }
+
+    private static void UpdatePackage()
+    {
+        Console.Clear();
+        PackageController packageController = new PackageController();
+        packageController.FindAll().ForEach(x => Console.WriteLine(x.ToStringPackage()));
+
+        Console.Write("Digite o valor do ID do pacote que deseja editar: ");
+        int id = int.Parse(Console.ReadLine());
+        if (packageController.FindAll().Exists(x => x.Id == id))
+        {
+            Console.Clear();
+            Console.Write("Digite a nova data de registro do pacote: ");
+            DateTime registrationDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Digite o novo valor do pacote: ");
+            decimal packageValue = decimal.Parse(Console.ReadLine());
+
+            Package package = new Package
+            {
+                RegistrationDate = registrationDate,
+                PackageValue = packageValue
+            };
+
+            if (new PackageController().Update(package, id))
+            {
+                Console.Clear();
+                Console.WriteLine("Pacote editado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void DeletePackage()
+    {
+        Console.Clear();
+        PackageController packageController = new PackageController();
+        packageController.FindAll().ForEach(x => Console.WriteLine(x.ToStringPackage()));
+
+        Console.Write("Digite o valor do ID do pacote que deseja deletar: ");
+        int id = int.Parse(Console.ReadLine());
+        if (packageController.FindAll().Exists(x => x.Id == id))
+        {
+            if (new PackageController().Delete(id))
+            {
+                Console.Clear();
+                Console.WriteLine("Pacote deletado com sucesso!");
+                Thread.Sleep(3000);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("O ID informado não existe");
+            Thread.Sleep(3000);
+        }
+    }
+
+    private static void PrintPackage()
+    {
+        do
+        {
+            Console.Clear();
+            new PackageController().FindAll().ForEach(x => Console.WriteLine(x.ToStringPackage()));
             Console.WriteLine("Aperte ENTER para retornar ao Menu de Impressão");
         } while (Console.ReadKey().Key != ConsoleKey.Enter);
     }

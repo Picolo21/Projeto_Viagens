@@ -1,7 +1,7 @@
-﻿using Projeto_Viagens.Models;
-using Projeto_Viagens.Services;
+﻿using Projeto_Viagens_ADO.NET.Models;
+using Projeto_Viagens_ADO.NET.Services;
 
-namespace Projeto_Viagens.Controllers
+namespace Projeto_Viagens_ADO.NET.Controllers
 {
     public class HotelController
     {

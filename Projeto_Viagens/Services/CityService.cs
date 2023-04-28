@@ -1,9 +1,8 @@
-﻿using Projeto_Viagens.Models;
-using System.Data;
+﻿using Projeto_Viagens_ADO.NET.Models;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Projeto_Viagens.Services
+namespace Projeto_Viagens_ADO.NET.Services
 {
     public class CityService
     {

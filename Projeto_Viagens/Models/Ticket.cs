@@ -1,4 +1,4 @@
-﻿namespace Projeto_Viagens.Models
+﻿namespace Projeto_Viagens_ADO.NET.Models
 {
     public class Ticket
     {
@@ -15,6 +15,11 @@
                    $"Cliente: {Customer.CustomerName}\nData de Registro: {Date.ToString("dd/MM/yyyy")}\n" +
                    $"Valor: R$ {TicketValue.ToString("F2")}\n\n" +
                    $"------------------------------------------------------------------------------------\n";
+        }
+
+        public string ToStringPackage()
+        {
+            return $"Origem: {Origin.ToStringTicket()}Destino: {Destination.ToStringPackage()}";
         }
     }
 }

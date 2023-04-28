@@ -1,8 +1,8 @@
-﻿using Projeto_Viagens.Models;
+﻿using Projeto_Viagens_ADO.NET.Models;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Projeto_Viagens.Services
+namespace Projeto_Viagens_ADO.NET.Services
 {
     public class TicketService
     {
@@ -68,7 +68,7 @@ namespace Projeto_Viagens.Services
             bool status = false;
             try
             {
-                string strDelete = $"DELETE FROM Ticket WHERE Id = @Id";
+                string strDelete = $"DELETE FROM Package WHERE Id = @Id";
 
                 SqlCommand commandDelete = new SqlCommand(strDelete, conn);
 
